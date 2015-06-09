@@ -3,6 +3,7 @@ package javafx.debug.axis;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -58,13 +59,46 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Handles keyboard to reset or translate the camera
+     */
     public void handleKeyboard() {
+        this.scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                switch(event.getCode()) {
+                    case Z:
+                        Main.this.cameraGroup.getTransforms().clear();
+                        Main.this.cameraGroup.getTransforms().add(new Translate(0.0, 0.0, -15));
+                        break;
 
+                    case UP:
+                        Main.this.cameraGroup.getTransforms().add(new Translate(0.0, 0.0, 0.4));
+                        break;
+
+                    case DOWN:
+                        Main.this.cameraGroup.getTransforms().add(new Translate(0.0, 0.0, -0.4));
+                        break;
+
+                    case LEFT:
+                        Main.this.cameraGroup.getTransforms().add(new Translate(-0.4, 0.0, 0.0));
+                        break;
+
+                    case RIGHT:
+                        Main.this.cameraGroup.getTransforms().add(new Translate(0.4, 0.0, 0.0));
+                        break;
+
+                    default:
+                        // Nothing happens
+                        break;
+                }
+            }
+        });
     }
 
 
     /**
-     * Handle mouse dragging to change the camera orientation
+     * Handles mouse dragging to change the camera orientation
      */
     public void handleMouse() {
         this.scene.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -80,7 +114,7 @@ public class Main extends Application {
         this.scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(event.isPrimaryButtonDown()) {
+                if (event.isPrimaryButtonDown()) {
                     double deltaX = event.getX() - Main.this.oldMouseX;
                     double deltaY = event.getY() - Main.this.oldMouseY;
 
