@@ -42,7 +42,7 @@ public class Main extends Application {
         // Root node
         this.root = new Group();
         this.root.getChildren().add(this.cameraGroup);
-        this.root.getChildren().add(sphere);
+        this.root.getChildren().add(new DebugAxis(-2, 4, -2, 6, -5, 6));
 
         // Scene
         this.scene = new Scene(root, 800, 600, true, SceneAntialiasing.BALANCED);
