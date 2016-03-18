@@ -88,6 +88,13 @@ public class Main extends Application {
                         Main.this.cameraGroup.getTransforms().add(new Translate(0.4, 0.0, 0.0));
                         break;
 
+                    case PAGE_DOWN:
+                        Main.this.cameraGroup.getTransforms().add(new Translate(0.0, 0.4, 0.0));
+                        break;
+
+                    case PAGE_UP:
+                        Main.this.cameraGroup.getTransforms().add(new Translate(0.0, -0.4, 0.0));
+
                     default:
                         // Nothing happens
                         break;
@@ -123,7 +130,7 @@ public class Main extends Application {
 
 
                     Main.this.cameraGroup.getTransforms().add(new Rotate(deltaX * 0.01, Rotate.Y_AXIS));
-                    Main.this.cameraGroup.getTransforms().add(new Rotate(deltaY * 0.01, Rotate.X_AXIS));
+                    Main.this.cameraGroup.getTransforms().add(new Rotate(-deltaY * 0.01, Rotate.X_AXIS));
                 }
             }
         });
